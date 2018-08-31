@@ -1,60 +1,96 @@
+/*
+ * Zachary Keane
+ * Github: https://github.com/ztkeane/
+ * Project: Zach-Basketball
+ */
+
 package Controller;
 import java.io.*;
+import java.util.Scanner;
 
-import Model.LinkedList;
 import Model.MyHashMap;
 
+/*
+ * This is where main is located, and where the program's model classes are called
+ * from. As of now, all controller does is create a MyHashMap of LinkedLists which
+ * contains Nodes. 
+ */
 public class controller {
+	//Constant for number of teams in program.
+	private static int NUMBER_OF_TEAMS = 8;
+	
+	/*
+	 * All main does for now is call the getPlayers() function to receive a MyHashMap,
+	 * and prints out the contents of this MyHashMap, which should be all created players
+	 * and their names. 
+	 * Parameters: No args are supplied in the command line.
+	 * Returns: None
+	 */
 	public static void main(String[] args) {
-		MyHashMap nameMap = getPlayers();
-		nameMap.printContents();
+		MyHashMap nameMap = getNames();
+		MyHashMap playerMap = createPlayers(nameMap);
+		playerMap.printContents();
+		System.exit(0);
 	}
 	
-	private static MyHashMap getPlayers() {
+	/*
+	 * getPlayers() creates a MyHashMap that contains all names from the names.txt file
+	 * under the Info directory. All names will be capitalized.
+	 * Parameters: None
+	 * Returns: nameMap, a MyHashMap with capitalized names.
+	 */
+	private static MyHashMap getNames() {
 		MyHashMap nameMap = new MyHashMap();
-		//initially read in names file
+		//Read in path to names.txt, the file where we will get our names from.
+		File nameFile = new File("src/Info/names.txt");
+		Scanner in = null;
+		//Use Scanner class to read in from names.txt
 		try {
-			BufferedReader in = new BufferedReader(new FileReader("/Users/zach/Zach-Basketball/src/Info/names.txt"));
-			//IMPORTANT: find a way to use relative path here:
-			//BufferedReader in = new BufferedReader(new FileReader("../Info/names.txt"));
-			String str; String myStr;
-			//go through each line, save into a hash map
-			while ((str = in.readLine()) != null) {
-				myStr = str.substring(0, 1).toUpperCase() + str.substring(1);
-				nameMap.insert(myStr);
-			}
-			in.close();
+			in = new Scanner(nameFile);
 		} catch (FileNotFoundException e) {
-			// file reading exception
-			e.printStackTrace();
-		} catch (IOException e) {
-			// string printing exception
-			e.printStackTrace();
+			// Catch FileNotFoundException if names.txt path incorrect, exit with status 1.
+			System.err.println("Could not read names.txt file.");
+			System.exit(1);
 		}
-		MyHashMap playerMap = makePlayers(nameMap);
-		return playerMap;
+		//Read line-by-line and hash the names.
+		while (in.hasNextLine()) {
+			String newName = in.nextLine();
+			//Be sure to capitalize names, to give appearance of a title.
+			newName = newName.substring(0, 1).toUpperCase() + newName.substring(1);
+			//MyHashMap will hash the name into the proper location.
+			nameMap.insert(newName);
+		}
+		return nameMap;
 	}
 	
-	private static MyHashMap makePlayers(MyHashMap nameMap) {
-		MyHashMap playerMap = new MyHashMap();
-		for (int i = 0; i < 48; i++) {
-			int randomFirst = (int) ((Math.random() * 100) % 50);
-			int randomSecond = (int) ((Math.random() * 100) % 50);
-			LinkedList myList = playerMap.getName(randomFirst);
-			while (myList.getSize() > 0) {
-				randomFirst = (int) ((Math.random() * 100) % 50);
-				myList = playerMap.getName(randomFirst);
+	/*
+	 * createPlayers(MyHashMap) will create another MyHashMap, except with both
+	 * first and last names that are randomly generated for players.
+	 * Parameters: names, the MyHashMap of names that was generated in the getNames() function.
+	 * Returns: players, the MyHashMap of full names.
+	 */
+	private static MyHashMap createPlayers(MyHashMap names) {
+		MyHashMap players = new MyHashMap();
+		//This for-loop iterates such that each team should have at least 12 players.
+		for (int i = 0; i < (NUMBER_OF_TEAMS * 12); i++) {
+			String playerName = "";
+			//We will use Math.random(), which generates a random double between 0-1, and fit it to our needs.
+			int firstNameIndex = (int) (Math.random() * 100) % 50;
+			//Make sure we don't read from a null entry in MyHashMap
+			while (names.getName(firstNameIndex) == null) {
+				firstNameIndex = (int) (Math.random() * 100) % 50;
 			}
-			LinkedList secondList = playerMap.getName(randomFirst);
-			while (secondList.getSize() > 0) {
-				randomSecond = (int) ((Math.random() * 100) % 50);
-				secondList = playerMap.getName(randomSecond);
+			//Add first name to the player name.
+			playerName += names.getName(firstNameIndex);
+			//Do the same above but with a last name.
+			int lastNameIndex = (int) (Math.random() * 100) % 50;
+			while (names.getName(lastNameIndex) == null) {
+				lastNameIndex = (int) (Math.random() * 100) % 50;
 			}
-			String firstName = myList.getString();
-			String lastName = secondList.getString();
-			String name = firstName + " " + lastName;
-			playerMap.insert(name);
+			playerName += " " + names.getName(lastNameIndex);
+			//Finally, insert the full name into the new MyHashMap.
+			players.insert(playerName);
 		}
-		return playerMap;
+		return players;
 	}
 }

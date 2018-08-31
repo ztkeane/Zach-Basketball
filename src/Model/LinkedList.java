@@ -12,10 +12,6 @@ public class LinkedList {
 	public void add(Node newNode) {
         if (head == null) {
         		head = newNode;
-        		size++;
-        }
-        else if (head.getStr().equals(newNode.getStr())) {
-        		return;
         }
         else {
         		Node walker = head;
@@ -23,8 +19,8 @@ public class LinkedList {
         			walker = walker.getNext();
         		}
         		walker.setNext(newNode);
-        		size++;
         }
+        size++;
 	}
 	
 	//get a random string from the linked list here

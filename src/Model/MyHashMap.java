@@ -16,8 +16,11 @@ public class MyHashMap {
         this.hashMap[insertionArea].add(newNode);
     }
 	
-	public LinkedList getName(int index) {
-		return this.hashMap[index];
+	public String getName(int index) {
+		if (this.hashMap[index] == null) {
+			return null;
+		}
+		return this.hashMap[index].getString();
 	}
 	
 	private int Hasher(String k) {
