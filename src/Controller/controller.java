@@ -29,6 +29,7 @@ public class controller {
 	public static void main(String[] args) {
 		MyHashMap nameMap = getNames();
 		MyHashMap playerMap = createPlayers(nameMap);
+		generatePlayers(playerMap); //perhaps make this an ArrayList<Person>?
 		playerMap.printContents();
 		System.exit(0);
 	}
@@ -71,8 +72,8 @@ public class controller {
 	 */
 	private static MyHashMap createPlayers(MyHashMap names) {
 		MyHashMap players = new MyHashMap();
-		//This for-loop iterates such that each team should have at least 12 players.
-		for (int i = 0; i < (NUMBER_OF_TEAMS * 12); i++) {
+		//This for-loop iterates such that each team should have at least 12 players and a coach.
+		for (int i = 0; i < (NUMBER_OF_TEAMS * 13); i++) {
 			String playerName = "";
 			//We will use Math.random(), which generates a random double between 0-1, and fit it to our needs.
 			int firstNameIndex = (int) (Math.random() * 100) % 50;
@@ -92,5 +93,10 @@ public class controller {
 			players.insert(playerName);
 		}
 		return players;
+	}
+	
+	//this should generate players of type 
+	private static void generatePlayers(MyHashMap players) {
+		;
 	}
 }
