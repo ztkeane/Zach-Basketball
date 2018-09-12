@@ -51,7 +51,7 @@ public class controller {
 		} catch (FileNotFoundException e) {
 			// Catch FileNotFoundException if names.txt path incorrect, exit with status 1.
 			System.err.println("Could not read names.txt file.");
-			System.exit(1);
+			System.exit(-1);
 		}
 		//Read line-by-line and hash the names.
 		while (in.hasNextLine()) {
