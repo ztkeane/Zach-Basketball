@@ -4,11 +4,23 @@ public class LinkedList {
 	private Node head;
 	private int size;
 	
+	/*
+	 * This LinkedList class will mostly assist the MyHashMap class in performing
+	 * chaining on collisions. In this program, 50 of these LinkedList classes
+	 * will be needed
+	 */
 	public LinkedList() {
 		this.head = null;
 		size = 0;
 	}
 	
+	/*
+	 * add
+	 * Adds a node to the end of our linked list.
+	 * 
+	 * Parameters: newNode, a Node to be inserted at the end of the linked list.
+	 * Return Value: None
+	 */
 	public void add(Node newNode) {
         if (head == null) {
         		head = newNode;
@@ -40,7 +52,7 @@ public class LinkedList {
      * Arguments:
      * None
      *
-     * Return Value - count, an integer telling how many elements are in the linked list.
+     * Return Value: count, an integer telling how many elements are in the linked list.
      */
     public int bucketSize() {
         int count = 0;
@@ -57,6 +69,10 @@ public class LinkedList {
         return count;
     }
     
+    /*
+     * getSize
+     * Simply, a getter for the size of our linked list. Returns an integer.
+     */
     public int getSize() {
     		return this.size;
     }
@@ -65,20 +81,22 @@ public class LinkedList {
      * toString
      * The string representation of the linked list.
      *
-     * Arguments:
-     * None
-     *
-     * Return Value - myStr, the string representation of the linked list.
+     * Parameters: None
+     * Return Value: The String representation of the linked list. Example:
+     * 1 -> 2 -> 3
      */
     public String toString() {
         String myStr = "";
+        //If head is null, be sure to return an empty String.
         if (this.head == null) {
             ;
         }
         else {
+        		//Use a walkerNode to hold a reference to our current Node in iteration.
             Node walkerNode = this.head;
             while (walkerNode != null) {
                 myStr += walkerNode.toString();
+                //Ensure we don't have a hanging arrow off the last element.
                 if (walkerNode.getNext() != null) {
                     myStr += " -> "; //no arrows after last element is found.
                 }
