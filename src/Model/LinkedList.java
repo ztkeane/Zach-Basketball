@@ -35,7 +35,15 @@ public class LinkedList {
         size++;
 	}
 	
-	//get a random string from the linked list here
+	/*
+     * getString()
+     * Returns a random String from the Nodes contained in this LinkedList class.
+     *
+     * Arguments:
+     * None
+     *
+     * Return Value: A String randomly chosen from the LinkedList class.
+     */
 	public String getString() {
 		int iterations = (int) ((Math.random() * 100) % size);
 		Node walker = head;
@@ -44,9 +52,31 @@ public class LinkedList {
 		}
 		return walker.getStr();
 	}
+	
+	/*
+     * dumpNames
+     * Returns a String array of all names in the LinkedList object.
+     *
+     * Arguments:
+     * None
+     *
+     * Return Value: A String[] array containing all names in this LinkedList object.
+     */
+	public String[] dumpNames() {
+		String[] names = new String[size];
+		int i = 0;
+		Node walker = head;
+		while (walker.getNext() != null) {
+			names[i] = walker.getStr();
+			i++;
+			walker = walker.getNext();
+		}
+		names[i] = walker.getStr();
+		return names;
+	}
     
     /*
-     * contains
+     * bucketSize
      * Returns an integer telling how many elements are in the linked list.
      *
      * Arguments:

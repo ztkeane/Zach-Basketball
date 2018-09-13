@@ -8,7 +8,7 @@ package Controller;
 import java.io.*;
 import java.util.Scanner;
 
-import Model.MyHashMap;
+import Model.*;
 
 /*
  * This is where main is located, and where the program's model classes are called
@@ -18,6 +18,7 @@ import Model.MyHashMap;
 public class controller {
 	//Constant for number of teams in program.
 	private static int NUMBER_OF_TEAMS = 8;
+	private static int PLAYERS_IN_TEAMS = 13;
 	
 	/*
 	 * All main does for now is call the getPlayers() function to receive a MyHashMap,
@@ -29,7 +30,7 @@ public class controller {
 	public static void main(String[] args) {
 		MyHashMap nameMap = getNames();
 		MyHashMap playerMap = createPlayers(nameMap);
-		generatePlayers(playerMap); //perhaps make this an ArrayList<Person>?
+		Person[] players = generatePlayers(playerMap); //perhaps make this an ArrayList<Person>?
 		playerMap.printContents();
 		System.exit(0);
 	}
@@ -49,7 +50,7 @@ public class controller {
 		try {
 			in = new Scanner(nameFile);
 		} catch (FileNotFoundException e) {
-			// Catch FileNotFoundException if names.txt path incorrect, exit with status 1.
+			// Catch FileNotFoundException if names.txt path incorrect, exit with status -1.
 			System.err.println("Could not read names.txt file.");
 			System.exit(-1);
 		}
@@ -72,14 +73,14 @@ public class controller {
 	 */
 	private static MyHashMap createPlayers(MyHashMap names) {
 		MyHashMap players = new MyHashMap();
-		//This for-loop iterates such that each team should have at least 12 players and a coach.
-		for (int i = 0; i < (NUMBER_OF_TEAMS * 13); i++) {
+		//This for-loop iterates such that we can fill all rosters.
+		for (int i = 0; i < (NUMBER_OF_TEAMS * PLAYERS_IN_TEAMS); i++) {
 			String playerName = "";
 			//We will use Math.random(), which generates a random double between 0-1, and fit it to our needs.
-			int firstNameIndex = (int) (Math.random() * 100) % 50;
+			int firstNameIndex = (int) (Math.random() * 100) % names.getSize();
 			//Make sure we don't read from a null entry in MyHashMap
 			while (names.getName(firstNameIndex) == null) {
-				firstNameIndex = (int) (Math.random() * 100) % 50;
+				firstNameIndex = (int) (Math.random() * 100) % names.getSize();
 			}
 			//Add first name to the player name.
 			playerName += names.getName(firstNameIndex);
@@ -96,7 +97,22 @@ public class controller {
 	}
 	
 	//this should generate players of type 
-	private static void generatePlayers(MyHashMap players) {
-		;
+	private static Person[] generatePlayers(MyHashMap players) {
+		int size = NUMBER_OF_TEAMS * PLAYERS_IN_TEAMS;
+		String[] stringArray = players.dump(size);
+		Person[] personArray = new Person[size];
+		int i = 0;
+		//First, we must create all players.
+		while (i < size - NUMBER_OF_TEAMS) {
+			//Must figure out position generation.
+			personArray[i] = new Player(stringArray[i], Position.PG);
+			i++;
+		}
+		//Then, create coaches.
+		while (i < size) {
+			personArray[i] = new Coach(stringArray[i]);
+			i++;
+		}
+		return personArray;
 	}
 }

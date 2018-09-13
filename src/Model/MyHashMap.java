@@ -3,14 +3,15 @@ package Model;
 public class MyHashMap {
 	//hashMap is an array of LinkedLists, meant to handle collisions through chaining.
 	private LinkedList [] hashMap;
+	//We will choose a hashMap size of 50 for this project.
+	private int size = 50;
 	
 	/*
 	 * The MyHashMap class will serve as a way to quickly access random strings
 	 * in O(1) time. 
 	 */
 	public MyHashMap() {
-		//We will choose a hashMap size of 50 for this project.
-		this.hashMap = new LinkedList[50];
+		this.hashMap = new LinkedList[size];
 	}
 	
 	/*
@@ -68,6 +69,25 @@ public class MyHashMap {
         count = count % 50;
         return count;
     }
+	
+	public String[] dump(int ArraySize) {
+		String[] array = new String[ArraySize];
+		int k = 0;
+		for (int i = 0; i < this.size; i++) {
+			//BUG HERE
+			String[] temp = this.hashMap[i].dumpNames();
+			for (int j = 0; j < hashMap[i].getSize(); j++) {
+				array[k] = temp[j];
+				k++;
+			}
+		}
+		return array;
+	}
+	
+	//getter for the size constant
+	public int getSize() {
+		return this.size;
+	}
 	
 	/*
 	 * printContents
