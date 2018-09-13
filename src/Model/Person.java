@@ -10,4 +10,8 @@ public class Person {
 	public Person(String name) {
 		this.name = name;
 	}
+	
+	public String toString() {
+		return this.name;
+	}
 }

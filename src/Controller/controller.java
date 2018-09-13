@@ -30,7 +30,12 @@ public class controller {
 	public static void main(String[] args) {
 		MyHashMap nameMap = getNames();
 		MyHashMap playerMap = createPlayers(nameMap);
-		Person[] players = generatePlayers(playerMap); //perhaps make this an ArrayList<Person>?
+		Person[] players = generatePlayers(playerMap);
+		System.out.println("Players:");
+		for (int i = 0; i < NUMBER_OF_TEAMS * PLAYERS_IN_TEAMS; i++) {
+			System.out.println(players[i]);
+		}
+		System.out.println("\nplayerMap:");
 		playerMap.printContents();
 		System.exit(0);
 	}

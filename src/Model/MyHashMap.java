@@ -74,11 +74,15 @@ public class MyHashMap {
 		String[] array = new String[ArraySize];
 		int k = 0;
 		for (int i = 0; i < this.size; i++) {
-			//BUG HERE
-			String[] temp = this.hashMap[i].dumpNames();
-			for (int j = 0; j < hashMap[i].getSize(); j++) {
-				array[k] = temp[j];
-				k++;
+			if (this.hashMap[i] == null) {
+				;
+			}
+			else {
+				String[] temp = this.hashMap[i].dumpNames();
+				for (int j = 0; j < hashMap[i].getSize(); j++) {
+					array[k] = temp[j];
+					k++;
+				}
 			}
 		}
 		return array;
