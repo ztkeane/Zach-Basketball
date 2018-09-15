@@ -13,8 +13,6 @@ public class Player extends Person {
 	private int rebounding;
 	//The passing rating of the player, useful when teammates are subpar. 99 rating = Magic Johnson.
 	private int passing;
-	//The position of the player, which is enumerated to PG, SG, SF, PF, C.
-	private Position position;
 	
 	/*
 	 * The Player class will be huge when the project is finished. Player must
@@ -23,7 +21,53 @@ public class Player extends Person {
 	 */
 	public Player(String name, Position position) {
 		super(name);
-		this.position = position;
+		this.setPosition(position);
+	}
+	
+	public void generateStats() {
+		if (this.position == Position.PG) {
+			int inOffense = (int) (Math.random() * 100) % 77;
+			this.insideOffense = 32 + inOffense;
+			int outOffense = (int) (Math.random() * 100) % 50;
+			this.outsideOffense = 49 + outOffense;
+			int inDefense = (int) (Math.random() * 100) % 99;
+			this.insideDefense = inDefense;
+			int outDefense = (int) (Math.random() * 100) % 50;
+			this.outsideDefense = 49 + outDefense;
+			int rebounds = (int) (Math.random() * 100) % 99;
+			this.rebounding = rebounds;
+			int passer = (int) (Math.random() * 100) % 50;
+			this.passing = 49 + passer;
+			this.overallRating = (int) ((double) this.insideOffense / 0.15 + (double) this.outsideOffense / 0.3 + 
+					(double) this.insideDefense / 0.1 + (double) this.outsideDefense / 0.2 + (double) this.rebounding / 0.05 +
+					(double) this.passing / 0.2);
+		}
+		else if (this.position == Position.SG) {
+			int inOffense = (int) (Math.random() * 100) % 50;
+			this.insideOffense = 49 + inOffense;
+			int outOffense = (int) (Math.random() * 100) % 60;
+			this.outsideOffense = 39 + outOffense;
+			int inDefense = (int) (Math.random() * 100) % 70;
+			this.insideDefense = 29 + inDefense;
+			int outDefense = (int) (Math.random() * 100) % 50;
+			this.outsideDefense = 49 + outDefense;
+			int rebounds = (int) (Math.random() * 100) % 99;
+			this.rebounding = rebounds;
+			int passer = (int) (Math.random() * 100) % 70;
+			this.passing = 29 + passer;
+			this.overallRating = (int) ((double) this.insideOffense / 0.25 + (double) this.outsideOffense / 0.25 + 
+					(double) this.insideDefense / 0.1 + (double) this.outsideDefense / 0.2 + (double) this.rebounding / 0.1 +
+					(double) this.passing / 0.1);
+		}
+		else if (this.position == Position.SF) {
+			;
+		}
+		else if (this.position == Position.PF) {
+			;
+		}
+		else {
+			;
+		}
 	}
 
 	/*
@@ -76,5 +120,17 @@ public class Player extends Person {
 
 	public void setPassing(int passing) {
 		this.passing = passing;
+	}
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+	
+	public String toString() {
+		return this.name;
 	}
 }

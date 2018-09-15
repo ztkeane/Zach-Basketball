@@ -5,5 +5,6 @@ public enum Position {
 	SG, //Shooting Guard
 	SF, //Small Forward
 	PF, //Power Forward
-	C   //Center
+	C,   //Center
+	COACH //Coach
 }

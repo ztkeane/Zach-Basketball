@@ -33,7 +33,7 @@ public class controller {
 		Person[] players = generatePlayers(playerMap);
 		System.out.println("Players:");
 		for (int i = 0; i < NUMBER_OF_TEAMS * PLAYERS_IN_TEAMS; i++) {
-			System.out.println(players[i]);
+			System.out.println(players[i] + " " + players[i].getPosition());
 		}
 		System.out.println("\nplayerMap:");
 		playerMap.printContents();
@@ -90,9 +90,9 @@ public class controller {
 			//Add first name to the player name.
 			playerName += names.getName(firstNameIndex);
 			//Do the same above but with a last name.
-			int lastNameIndex = (int) (Math.random() * 100) % 50;
+			int lastNameIndex = (int) (Math.random() * 100) % names.getSize();
 			while (names.getName(lastNameIndex) == null) {
-				lastNameIndex = (int) (Math.random() * 100) % 50;
+				lastNameIndex = (int) (Math.random() * 100) % names.getSize();
 			}
 			playerName += " " + names.getName(lastNameIndex);
 			//Finally, insert the full name into the new MyHashMap.
@@ -106,16 +106,42 @@ public class controller {
 		int size = NUMBER_OF_TEAMS * PLAYERS_IN_TEAMS;
 		String[] stringArray = players.dump(size);
 		Person[] personArray = new Person[size];
+		//Must split 
+		int switchPos = (size - NUMBER_OF_TEAMS) / 5;
+		Position pos = Position.PG;
 		int i = 0;
+		int j = 0;
 		//First, we must create all players.
 		while (i < size - NUMBER_OF_TEAMS) {
 			//Must figure out position generation.
-			personArray[i] = new Player(stringArray[i], Position.PG);
+			personArray[i] = new Player(stringArray[i], pos);
+			personArray[i].generateStats();
 			i++;
+			j++;
+			//If we've created enough of one position, move onto another.
+			if (j == switchPos) {
+				if (pos == Position.PG) {
+					pos = Position.SG;
+				}
+				else if (pos == Position.SG) {
+					pos = Position.SF;
+				}
+				else if (pos == Position.SF) {
+					pos = Position.PF;
+				}
+				else if (pos == Position.PF) {
+					pos = Position.C;
+				}
+				else {
+					pos = Position.PG;
+				}
+				j = 0;
+			}
 		}
-		//Then, create coaches.
+		//Then, create coaches. This is separate, so we don't create multiple coaches per team.
 		while (i < size) {
 			personArray[i] = new Coach(stringArray[i]);
+			personArray[i].generateStats();
 			i++;
 		}
 		return personArray;
