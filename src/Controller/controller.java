@@ -32,8 +32,9 @@ public class controller {
 		MyHashMap playerMap = createPlayers(nameMap);
 		Person[] players = generatePlayers(playerMap);
 		System.out.println("Players:");
-		for (int i = 0; i < NUMBER_OF_TEAMS * PLAYERS_IN_TEAMS; i++) {
-			System.out.println(players[i] + " " + players[i].getPosition());
+		for (int i = 0; i < players.length; i++) {
+			players[i].generateStats();
+			System.out.println(players[i]);
 		}
 		System.out.println("\nplayerMap:");
 		playerMap.printContents();

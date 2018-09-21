@@ -70,13 +70,23 @@ public class MyHashMap {
         return count;
     }
 	
+	/*
+	 * dump
+	 * Dumps a string array of all names inside of the MyHashMap.
+	 * 
+	 * Parameters: ArraySize, an int indicating the size of the String[] array, given by
+	 * the controller class. 
+	 * Return value: array, a String[] containing all names of players/coaches.
+	 */
 	public String[] dump(int ArraySize) {
 		String[] array = new String[ArraySize];
 		int k = 0;
 		for (int i = 0; i < this.size; i++) {
+			//Do not attempt to read null indexes.
 			if (this.hashMap[i] == null) {
 				;
 			}
+			//Otherwise, dump the names and put into array.
 			else {
 				String[] temp = this.hashMap[i].dumpNames();
 				for (int j = 0; j < hashMap[i].getSize(); j++) {

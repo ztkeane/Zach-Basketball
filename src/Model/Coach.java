@@ -21,6 +21,29 @@ public class Coach extends Person {
 	}
 
 	/*
+	 * generateStats
+	 * Generates the coach's attribute boosts to certain players, along with his overall rating.
+	 * 
+	 * Parameters: None
+	 * Returns: None
+	 */
+	public void generateStats() {
+		//Randomly generate all values.
+		this.offenseBoost = (int) (Math.random() * 100) % 5;
+		this.defenseBoost = (int) (Math.random() * 100) % 5;
+		this.passingBoost = (int) (Math.random() * 100) % 5;
+		int posBoost = (int) (Math.random() * 100) % 5;
+		switch (posBoost) {
+			case 0: this.positionBoost = Position.PG;
+			case 1: this.positionBoost = Position.SG;
+			case 2: this.positionBoost = Position.SF;
+			case 3: this.positionBoost = Position.PF;
+			case 4: this.positionBoost = Position.C;
+		}
+		this.overallRating = offenseBoost + defenseBoost + passingBoost;
+	}
+	
+	/*
 	 * Below are the getters and setters for all boosts given in the
 	 * coaching class.
 	 */
@@ -54,5 +77,21 @@ public class Coach extends Person {
 
 	public void setPositionBoost(Position positionBoost) {
 		this.positionBoost = positionBoost;
+	}
+	
+	/*
+	 * toString
+	 * Gives ability to print coach's name, along with his attributes.
+	 * 
+	 * Parameters: None
+	 * Returns: None
+	 */
+	public String toString() {
+		String str = "Name: " + this.name + "\n\tOverall: " + Integer.toString(overallRating);
+		str += "\n\tOffensive Boost: " + Integer.toString(offenseBoost);
+		str += "\n\tDefensive Boost: " + Integer.toString(defenseBoost);
+		str += "\n\tPassing Boost: " + Integer.toString(passingBoost);
+		str += "\n\tPosition Boost: " + positionBoost.toString();
+		return str;
 	}
 }
