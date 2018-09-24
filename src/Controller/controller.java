@@ -34,10 +34,12 @@ public class controller {
 		System.out.println("Players:");
 		for (int i = 0; i < players.length; i++) {
 			players[i].generateStats();
+		}
+		//Perform merge sort on players
+		players = mergeSort(players, 0, players.length - 1);
+		for (int i = 0; i < players.length; i++) {
 			System.out.println(players[i]);
 		}
-		System.out.println("\nplayerMap:");
-		playerMap.printContents();
 		System.exit(0);
 	}
 	
@@ -102,7 +104,10 @@ public class controller {
 		return players;
 	}
 	
-	//this should generate players of type 
+	/*
+	 * generatePlayers
+	 * Randomly generates the positions of 
+	 */
 	private static Person[] generatePlayers(MyHashMap players) {
 		int size = NUMBER_OF_TEAMS * PLAYERS_IN_TEAMS;
 		String[] stringArray = players.dump(size);
@@ -146,5 +151,82 @@ public class controller {
 			i++;
 		}
 		return personArray;
+	}
+	
+	/*
+	 * mergeSort
+	 * Performs mergeSort on the list of players, sorting them in order of overall rating.
+	 * Parameters: players, the array of coaches and players.
+	 * 			left, the leftmost index we will merge.
+	 * 			right, the rightmost index we will merge.
+	 * Returns: players, the sorted array of players and coaches
+	 */
+	public static Person[] mergeSort(Person[] players, int left, int right) {
+		//Our base case is if these two are the same or cross, stop recursing.
+		if (right <= left) {
+			return players;
+		}
+		//Find middle index to sort with.
+		int middle = (left + right) / 2;
+		//Recurse
+		players = mergeSort(players, left, middle);
+		players = mergeSort(players, middle + 1, right);
+		players = merge(players, left, middle, right);
+		//Finally, return the array.
+		return players;
+	}
+	
+	/*
+	 * merge
+	 * Performs the merge step of mergeSort on the given indices.
+	 * Parameters: players, the array of coaches and players.
+	 * 			left, the leftmost index we will merge.
+	 * 			right, the rightmost index we will merge.
+	 * Returns: players, the sorted array of players and coaches.
+	 */
+	public static Person[] merge(Person[] players, int left, int middle, int right) {
+		//initialize the "walking" variables to be used later.
+		int i = 0; int j = 0; int k = left;
+		//define sizes for the left and right subarrays.
+		int leftSize = middle - left + 1;
+		int rightSize = right - middle;
+		//Create the left and right subarrays.
+		Person[] leftArray = new Person[leftSize];
+		Person[] rightArray = new Person[rightSize];
+		//Add the needed values to the left subarray.
+		for (int a = 0; a < leftSize; a++) {
+			leftArray[a] = players[left + a];
+		}
+		//Add the needed values to the right subarray.
+		for (int b = 0; b < rightSize; b++) {
+			rightArray[b] = players[middle + 1 + b];
+		}
+		//We're trying to sort in descending order, so leftArray[i]
+		//will be entered first if their overall is greater than
+		//rightArray[j].
+		while (i < leftSize && j < rightSize) {
+			if (leftArray[i].getOverall() > rightArray[j].getOverall()) {
+				players[k] = leftArray[i];
+				i++;
+			}
+			else {
+				players[k] = rightArray[j];
+				j++;
+			}
+			k++;
+		}
+		//Add remaining values from left subarray.
+		while (i < leftSize) {
+			players[k] = leftArray[i];
+			i++;
+			k++;
+		}
+		//Add remaining values from right subarray.
+		while (j < rightSize) {
+			players[k] = rightArray[j];
+			j++;
+			k++;
+		}
+		return players;
 	}
 }

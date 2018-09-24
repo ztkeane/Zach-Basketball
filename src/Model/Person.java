@@ -25,6 +25,10 @@ public class Person {
 		return this.overallRating;
 	}
 	
+	public String getName() {
+		return this.name;
+	}
+	
 	/*
 	 * This only gives an error and exits the program, because the subclasses of
 	 * Person should handle this void function.

@@ -18,12 +18,12 @@ public enum Position {
 	public String toString() {
 		String str = "";
 		switch(this) {
-			case PG: str += "PG";
-			case SG: str += "SG";
-			case SF: str += "SF";
-			case PF: str += "PF";
-			case C: str += "C";
-			case COACH: str += "COACH";
+			case PG: return "PG";
+			case SG: return "SG";
+			case SF: return "SF";
+			case PF: return "PF";
+			case C: return "C";
+			case COACH: return "COACH";
 		}
 		return str;
 	}

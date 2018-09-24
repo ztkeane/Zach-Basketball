@@ -46,9 +46,9 @@ public class Player extends Person {
 			this.rebounding = rebounds;
 			int passer = (int) (Math.random() * 100) % 50;
 			this.passing = 49 + passer;
-			this.overallRating = (int) ((double) this.insideOffense / 0.15 + (double) this.outsideOffense / 0.3 + 
-					(double) this.insideDefense / 0.1 + (double) this.outsideDefense / 0.2 + (double) this.rebounding / 0.05 +
-					(double) this.passing / 0.2);
+			this.overallRating = (int) ((double) this.insideOffense * 0.15 + (double) this.outsideOffense * 0.3 + 
+					(double) this.insideDefense * 0.1 + (double) this.outsideDefense * 0.2 + (double) this.rebounding * 0.05 +
+					(double) this.passing * 0.2);
 		}
 		//Shooting guards are offensive masters, but cannot pass like their PG teammates.
 		else if (this.position == Position.SG) {
@@ -65,9 +65,9 @@ public class Player extends Person {
 			int passer = (int) (Math.random() * 100) % 70;
 			this.passing = 29 + passer;
 			//Generate overall rating.
-			this.overallRating = (int) ((double) this.insideOffense / 0.25 + (double) this.outsideOffense / 0.25 + 
-					(double) this.insideDefense / 0.1 + (double) this.outsideDefense / 0.2 + (double) this.rebounding / 0.1 +
-					(double) this.passing / 0.1);
+			this.overallRating = (int) ((double) this.insideOffense * 0.25 + (double) this.outsideOffense * 0.25 + 
+					(double) this.insideDefense * 0.1 + (double) this.outsideDefense * 0.2 + (double) this.rebounding * 0.1 +
+					(double) this.passing * 0.1);
 		}
 		else if (this.position == Position.SF) {
 			//Small Forwards are the most balanced position, can both shoot and take it inside.
@@ -83,9 +83,9 @@ public class Player extends Person {
 			this.rebounding = rebounds;
 			int passer = (int) (Math.random() * 100) % 99;
 			this.passing = passer;
-			this.overallRating = (int) ((double) this.insideOffense / 0.3 + (double) this.outsideOffense / 0.25 + 
-					(double) this.insideDefense / 0.1 + (double) this.outsideDefense / 0.15 + (double) this.rebounding / 0.1 +
-					(double) this.passing / 0.1);
+			this.overallRating = (int) ((double) this.insideOffense * 0.3 + (double) this.outsideOffense * 0.25 + 
+					(double) this.insideDefense * 0.1 + (double) this.outsideDefense * 0.15 + (double) this.rebounding * 0.1 +
+					(double) this.passing * 0.1);
 		}
 		else if (this.position == Position.PF) {
 			//Power Forwards are better inside defenders than Small Forwards, but worse outside defenders.
@@ -101,9 +101,9 @@ public class Player extends Person {
 			this.rebounding = 30 + rebounds;
 			int passer = (int) (Math.random() * 100) % 70;
 			this.passing = 29 + passer;
-			this.overallRating = (int) ((double) this.insideOffense / 0.3 + (double) this.outsideOffense / 0.1 + 
-					(double) this.insideDefense / 0.2 + (double) this.outsideDefense / 0.1 + (double) this.rebounding / 0.2 +
-					(double) this.passing / 0.1);
+			this.overallRating = (int) ((double) this.insideOffense * 0.3 + (double) this.outsideOffense * 0.1 + 
+					(double) this.insideDefense * 0.2 + (double) this.outsideDefense * 0.1 + (double) this.rebounding * 0.2 +
+					(double) this.passing * 0.1);
 		}
 		else if (this.position == Position.C ){
 			//Centers are better inside defenders and rebounders than Power Forwards.
@@ -119,9 +119,9 @@ public class Player extends Person {
 			this.rebounding = 50 + rebounds;
 			int passer = (int) (Math.random() * 100) % 70;
 			this.passing = 29 + passer;
-			this.overallRating = (int) ((double) this.insideOffense / 0.3 + (double) this.outsideOffense / 0.1 + 
-					(double) this.insideDefense / 0.2 + (double) this.outsideDefense / 0.1 + (double) this.rebounding / 0.2 +
-					(double) this.passing / 0.1);
+			this.overallRating = (int) ((double) this.insideOffense * 0.3 + (double) this.outsideOffense * 0.1 + 
+					(double) this.insideDefense * 0.2 + (double) this.outsideDefense * 0.1 + (double) this.rebounding * 0.2 +
+					(double) this.passing * 0.1);
 		}
 		else {
 			System.err.println("Attempted to assign stats to player without position.");
@@ -198,7 +198,7 @@ public class Player extends Person {
 	 */
 	public String toString() {
 		//Build a string containing the name, and tab all attributes.
-		String str = "Name: " + this.name + "\n\tOverall: " + Integer.toString(overallRating);
+		String str = "Name: " + this.name + " (" + this.position.toString() + ")"+ "\n\tOverall: " + Integer.toString(overallRating);
 		str += "\n\tInside Offense: " + Integer.toString(insideOffense);
 		str += "\n\tOutside Offense: " + Integer.toString(outsideOffense);
 		str += "\n\tInside Defense: " + Integer.toString(insideDefense);
