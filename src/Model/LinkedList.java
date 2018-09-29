@@ -54,6 +54,26 @@ public class LinkedList {
 	}
 	
 	/*
+     * removeString()
+     * Returns a random String from the Nodes contained in this LinkedList class,
+     * then deletes the string.
+     *
+     * Arguments:
+     * None
+     *
+     * Return Value: The head's corresponding string.
+     */
+	public String removeString() {
+		if (size == 0) {
+			return null;
+		}
+		Node temp = head;
+		head = head.getNext();
+		size--;
+		return temp.getStr();
+	}
+	
+	/*
      * dumpNames
      * Returns a String array of all names in the LinkedList object.
      *

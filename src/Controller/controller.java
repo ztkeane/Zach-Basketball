@@ -28,7 +28,7 @@ public class controller {
 	 * Returns: None
 	 */
 	public static void main(String[] args) {
-		MyHashMap nameMap = getNames();
+		MyHashMap nameMap = getNames("src/Info/names.txt");
 		MyHashMap playerMap = createPlayers(nameMap);
 		Person[] players = generatePlayers(playerMap);
 		System.out.println("Players:");
@@ -37,10 +37,22 @@ public class controller {
 		}
 		//Perform merge sort on players
 		players = mergeSort(players, 0, players.length - 1);
-		for (int i = 0; i < players.length; i++) {
-			System.out.println(players[i]);
-		}
+		MyHashMap teamNames = getNames("src/Info/teamnames.txt");
+		League ZachBasketballAssociation = createLeague(teamNames, players);
+		
 		System.exit(0);
+	}
+	
+	/*
+	 * createLeague
+	 * Creates the league with all players, teams, and conferences.
+	 * Parameters: None
+	 * Returns: None
+	 */
+	private static League createLeague(MyHashMap teamNames, Person[] players) {
+		League myLeague = new League(NUMBER_OF_TEAMS, PLAYERS_IN_TEAMS);
+		myLeague.buildFranchises(teamNames);
+		return myLeague;
 	}
 	
 	/*
@@ -49,17 +61,17 @@ public class controller {
 	 * Parameters: None
 	 * Returns: nameMap, a MyHashMap with capitalized names.
 	 */
-	private static MyHashMap getNames() {
+	private static MyHashMap getNames(String path) {
 		MyHashMap nameMap = new MyHashMap();
 		//Read in path to names.txt, the file where we will get our names from.
-		File nameFile = new File("src/Info/names.txt");
+		File nameFile = new File(path);
 		Scanner in = null;
 		//Use Scanner class to read in from names.txt
 		try {
 			in = new Scanner(nameFile);
 		} catch (FileNotFoundException e) {
 			// Catch FileNotFoundException if names.txt path incorrect, exit with status -1.
-			System.err.println("Could not read names.txt file.");
+			System.err.println("Could not read " + path + " file.");
 			System.exit(-1);
 		}
 		//Read line-by-line and hash the names.
@@ -166,7 +178,7 @@ public class controller {
 		if (right <= left) {
 			return players;
 		}
-		//Find middle index to sort with.
+		//Find middle index to cut arrays.
 		int middle = (left + right) / 2;
 		//Recurse
 		players = mergeSort(players, left, middle);

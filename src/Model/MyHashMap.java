@@ -52,6 +52,23 @@ public class MyHashMap {
 	}
 	
 	/*
+	 * getAndRemoveName
+	 * If the index doesn't lead to null, this will return a String entered into the 
+	 * LinkedList at the requested index, AND remove the String that was returned from
+	 * LinkedList.
+	 * 
+	 * Parameters: index, an integer representing the index we're interested in.
+	 * Return Value: A String received from calling the LinkedList's removeString()
+	 * function.
+	 */
+	public String getAndRemoveName(int index) {
+		if (this.hashMap[index] == null) {
+			return null;
+		}
+		return this.hashMap[index].removeString();
+	}
+	
+	/*
 	 * Hasher
 	 * Taking in a String, Hasher will calculate the total ascii value and modulo
 	 * this value by 50 so we may enter into a "random" index in the LinkedList

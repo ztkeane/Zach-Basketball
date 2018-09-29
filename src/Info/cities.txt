@@ -1,0 +1,32 @@
+New York,east
+Los Angeles,west
+Chicago,east
+Houston,west
+Philadelphia,east
+Phoenix,west
+Jacksonville,east
+San Antonio,west
+Indianapolis,east
+San Diego,west
+Colombus,east
+Dallas,west
+Charlotte,east
+San Jose,west
+Detroit,east
+San Francisco,west
+Washington,east
+Seattle,west
+Boston,east
+Denver,west
+Memphis,east
+Portland,west
+Baltimore,east
+Oklahoma City,west
+Louisville,east
+Las Vegas,west
+Milwaukee,east
+Albuquerque,west
+Atlanta,east
+Tucson,west
+Miami,east
+Sacramento,west
