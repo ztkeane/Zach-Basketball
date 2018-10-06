@@ -4,6 +4,8 @@ public class Person {
 	protected String name;
 	protected Position position;
 	protected int overallRating;
+	//Indicates whether player is on a team or not.
+	protected boolean onTeam;
 	
 	/*
 	 * Person will mostly be used so we may create data structures containing
@@ -11,6 +13,7 @@ public class Person {
 	 */
 	public Person(String name) {
 		this.name = name;
+		this.onTeam = false;
 	}
 	
 	public Position getPosition() {
@@ -27,6 +30,14 @@ public class Person {
 	
 	public String getName() {
 		return this.name;
+	}
+	
+	public boolean onTeam() {
+		return onTeam;
+	}
+	
+	public void setonTeam() {
+		onTeam = true;
 	}
 	
 	/*

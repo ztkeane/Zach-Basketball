@@ -31,7 +31,6 @@ public class controller {
 		MyHashMap nameMap = getNames("src/Info/names.txt");
 		MyHashMap playerMap = createPlayers(nameMap);
 		Person[] players = generatePlayers(playerMap);
-		System.out.println("Players:");
 		for (int i = 0; i < players.length; i++) {
 			players[i].generateStats();
 		}
@@ -39,7 +38,7 @@ public class controller {
 		players = mergeSort(players, 0, players.length - 1);
 		MyHashMap teamNames = getNames("src/Info/teamnames.txt");
 		League ZachBasketballAssociation = createLeague(teamNames, players);
-		
+		ZachBasketballAssociation.printLeague();
 		System.exit(0);
 	}
 	
@@ -52,6 +51,7 @@ public class controller {
 	private static League createLeague(MyHashMap teamNames, Person[] players) {
 		League myLeague = new League(NUMBER_OF_TEAMS, PLAYERS_IN_TEAMS);
 		myLeague.buildFranchises(teamNames);
+		myLeague.holdDraft(players);
 		return myLeague;
 	}
 	

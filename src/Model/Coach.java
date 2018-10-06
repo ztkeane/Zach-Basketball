@@ -87,7 +87,7 @@ public class Coach extends Person {
 	 * Returns: None
 	 */
 	public String toString() {
-		String str = "Name: " + this.name + "\n\tOverall: " + Integer.toString(overallRating);
+		String str = "Coach " + this.name + "\n\tOverall: " + Integer.toString(overallRating);
 		str += "\n\tOffensive Boost: " + Integer.toString(offenseBoost);
 		str += "\n\tDefensive Boost: " + Integer.toString(defenseBoost);
 		str += "\n\tPassing Boost: " + Integer.toString(passingBoost);
