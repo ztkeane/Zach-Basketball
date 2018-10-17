@@ -16,22 +16,14 @@ public class LinkedList {
 	
 	/*
 	 * add
-	 * Adds a node to the end of our linked list.
+	 * Adds a node to the beginning of our linked list.
 	 * 
-	 * Parameters: newNode, a Node to be inserted at the end of the linked list.
+	 * Parameters: newNode, a Node to be inserted at the beginning of the linked list.
 	 * Return Value: None
 	 */
 	public void add(Node newNode) {
-        if (head == null) {
-        		head = newNode;
-        }
-        else {
-        		Node walker = head;
-        		while (walker.getNext() != null) {
-        			walker = walker.getNext();
-        		}
-        		walker.setNext(newNode);
-        }
+		newNode.setNext(head);
+		head = newNode;
         size++;
 	}
 	

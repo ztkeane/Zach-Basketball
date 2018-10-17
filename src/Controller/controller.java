@@ -28,8 +28,9 @@ public class controller {
 	 * Returns: None
 	 */
 	public static void main(String[] args) {
-		MyHashMap nameMap = getNames("src/Info/names.txt");
-		MyHashMap playerMap = createPlayers(nameMap);
+		MyHashMap firstNames = getNames("src/Info/firstnames.txt");
+		MyHashMap lastNames = getNames("src/Info/lastnames.txt");
+		MyHashMap playerMap = createPlayers(firstNames, lastNames);
 		Person[] players = generatePlayers(playerMap);
 		for (int i = 0; i < players.length; i++) {
 			players[i].generateStats();
@@ -78,7 +79,8 @@ public class controller {
 		while (in.hasNextLine()) {
 			String newName = in.nextLine();
 			//Be sure to capitalize names, to give appearance of a title.
-			newName = newName.substring(0, 1).toUpperCase() + newName.substring(1);
+			newName = newName.substring(0, 1).toUpperCase() + newName.substring(1).toLowerCase();
+			newName = newName.trim();
 			//MyHashMap will hash the name into the proper location.
 			nameMap.insert(newName);
 		}
@@ -91,7 +93,7 @@ public class controller {
 	 * Parameters: names, the MyHashMap of names that was generated in the getNames() function.
 	 * Returns: players, the MyHashMap of full names.
 	 */
-	private static MyHashMap createPlayers(MyHashMap names) {
+	private static MyHashMap createPlayers(MyHashMap names, MyHashMap lastNames) {
 		MyHashMap players = new MyHashMap();
 		//This for-loop iterates such that we can fill all rosters.
 		for (int i = 0; i < (NUMBER_OF_TEAMS * PLAYERS_IN_TEAMS); i++) {
@@ -105,11 +107,11 @@ public class controller {
 			//Add first name to the player name.
 			playerName += names.getName(firstNameIndex);
 			//Do the same above but with a last name.
-			int lastNameIndex = (int) (Math.random() * 100) % names.getSize();
-			while (names.getName(lastNameIndex) == null) {
-				lastNameIndex = (int) (Math.random() * 100) % names.getSize();
+			int lastNameIndex = (int) (Math.random() * 100) % lastNames.getSize();
+			while (lastNames.getName(lastNameIndex) == null) {
+				lastNameIndex = (int) (Math.random() * 100) % lastNames.getSize();
 			}
-			playerName += " " + names.getName(lastNameIndex);
+			playerName += " " + lastNames.getName(lastNameIndex);
 			//Finally, insert the full name into the new MyHashMap.
 			players.insert(playerName);
 		}
