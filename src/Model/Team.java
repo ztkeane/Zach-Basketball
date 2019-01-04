@@ -135,4 +135,53 @@ public class Team {
 	public Player[] getPlayers() {
 		return players;
 	}
+	
+	public Player[] getPos(Position pos) {
+		Player[] michob;
+		if (pos == Position.PG) {
+			michob = new Player[PGnum];
+		}
+		else if (pos == Position.SG) {
+			michob = new Player[SGnum];
+		}
+		else if (pos == Position.SF) {
+			michob = new Player[SFnum];
+		}
+		else if (pos == Position.PF) {
+			michob = new Player[PFnum];
+		}
+		else if (pos == Position.C) {
+			michob = new Player[Cnum];
+		}
+		else {
+			System.err.println("Improper pos retrieval attempted from Team.\nAttempted: " + pos);
+			return null;
+		}
+		int j = 0;
+		for (int i = 0; i < players.length; i++) {
+			if (players[i] != null && players[i].getPosition() == pos) {
+				michob[j] = players[i];
+				j++;
+			}
+		}
+		return michob;
+	}
+	
+	public String toString() {
+		String str = "~~~~~~~~~~~~~~~~ " + city + " " + name + " ~~~~~~~~~~~~~~~~\n";
+		str += coach.toString() + "\n";
+		for (int i = 0; i < players.length; i++) {
+			if (players[i] == null) {
+				break;
+			}
+			str += players[i].toString() + "\n";
+		}
+		str += "# of PGs: " + PGnum + "\n";
+		str += "# of SGs: " + SGnum + "\n";
+		str += "# of SFs: " + SFnum + "\n";
+		str += "# of PFs: " + PFnum + "\n";
+		str += "# of Cs: " + Cnum + "\n";
+		str += "-------------------------------\n";
+		return str;
+	}
 }

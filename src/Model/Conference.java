@@ -36,6 +36,11 @@ public class Conference {
 		completedTeams++;
 	}
 	
+	public Team getRandomTeam() {
+		int random = (int) (Math.random() * 100) % teams.length;
+		return teams[random];
+	}
+	
 	//Getter for array of teams.
 	public Team[] getTeams() {
 		return teams;

@@ -39,7 +39,7 @@ public class controller {
 		players = mergeSort(players, 0, players.length - 1);
 		MyHashMap teamNames = getNames("src/Info/teamnames.txt");
 		League ZachBasketballAssociation = createLeague(teamNames, players);
-		ZachBasketballAssociation.printLeague();
+		ZachBasketballAssociation.play();
 		System.exit(0);
 	}
 	
