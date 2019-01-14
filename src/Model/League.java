@@ -132,8 +132,6 @@ public class League {
 	public void play() {
 		Team a = conferences[WEST].getRandomTeam();
 		Team b = conferences[EAST].getRandomTeam();
-		System.out.println(a);
-		System.out.println(b);
 		Game newGame = new Game(a, b);
 		newGame.start();
 	}

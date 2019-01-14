@@ -137,7 +137,7 @@ public class Team {
 	}
 	
 	public Player[] getPos(Position pos) {
-		Player[] michob;
+		Player[] michob = null;
 		if (pos == Position.PG) {
 			michob = new Player[PGnum];
 		}
