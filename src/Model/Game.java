@@ -8,7 +8,7 @@ public class Game {
 	private Player[][] bRoster;
 	private int aScore = 0;
 	private int bScore = 0;
-	private int TENDENCYMULTIPLIER = 8;
+	private int TENDENCYMULTIPLIER = 15;
 	
 	public Game(Team a, Team b) {
 		this.a = a;
@@ -32,45 +32,82 @@ public class Game {
 		this.bRoster[4] = b.getPos(Position.C);
 	}
 	
-	//TODO: Make into while loop.
+	//TODO: Implement rebounding.
 	public void start() {
 		boolean endPlay = false;
+		//THESE are temporary testing variables.
+		int plays = 120;
+		int i = 0;
 		//Should be in a while-loop in the future.
-		if (aPossession) {
+		while (i < plays) {
+			endPlay = singlePlay(aRoster, bRoster, a);
+			endPlay = singlePlay(bRoster, aRoster, b);
+			i++;
+		}
+		/*if (aPossession) {
 			endPlay = singlePlay(aRoster, bRoster, a);
 		}
 		else {
 			endPlay = singlePlay(bRoster, aRoster, b);
-		}
+		}*/
 	}
 	
-	//TODO: Return true if shot is made.
+	//PROBLEM: SOME ARRAYS HAVE 0 ELEMENTS (AKA ZERO PGs or Cs) MUST FIX!
 	private boolean singlePlay(Player[][] off, Player[][] def, Team team) {
 		int receiver = (int) (Math.random() * 100) % 5;
 		//CHANGE FROM 0 ONCE ROTATIONS ARE IMPLEMENTED
+		int emptyCount = 0;
+		//Sometimes, there might not be players at a certain position.
 		Player offense = off[receiver][0];
+		emptyCount = 0;
 		Player defense = def[receiver][0];
 		//Having 46 inside, 56 outside should mean much more outside than inside
 		int insideTendency = offense.getInsideOffense() * TENDENCYMULTIPLIER;
 		int outsideTendency = offense.getOutsideOffense() * TENDENCYMULTIPLIER;
 		int totalTendency = insideTendency + outsideTendency;
 		int choice = (int) (Math.random() * 99999) % totalTendency;
-		int shotOdds;
+		double shotOdds;
 		//Outside shot
 		if (choice > insideTendency) {
 			shotOdds = (offense.getOutsideOffense() + team.getCoach().getOffenseBoost()) / 2;
-			shotOdds -= defense.getOutsideDefense() / 5;
-			System.out.print(offense.getName() + " (" + offense.getOutsideOffense() + ") shoots over " + 
-					defense.getName() + " (" + defense.getOutsideDefense() + ") with odds of " + shotOdds);
+			shotOdds -= (defense.getOutsideDefense() + team.getCoach().getDefenseBoost()) / 12;
+			System.out.print(offense.getName() + " (" + offense.getOutsideOffense() + ") shoots a three over " + 
+					defense.getName() + " (" + defense.getOutsideDefense() + ") with odds of " + (int) shotOdds + "%");
+			int shotOutcome = (int) (Math.random() * 167) % 100;
+			if (shotOutcome <= shotOdds) {
+				System.out.println(" and hits!");
+				if (team.getCity().equals(a.getCity())) {
+					aScore += 3;
+				}
+				else {
+					bScore += 3;
+				}
+				System.out.println("\n" + b.getName() + ": " + bScore + "   " + a.getName() + ": " + aScore + "\n");
+				return true;
+			}
+			System.out.println(" and misses.");
 		}
+		//Inside shot.
 		else {
-			shotOdds = (offense.getInsideOffense() + team.getCoach().getOffenseBoost()) / 2;
-			shotOdds -= defense.getInsideDefense() / 5;
-			System.out.println(offense.getName() + " (" + offense.getInsideOffense() + ") lays it over " + 
-					defense.getName() + " (" + defense.getInsideDefense() + ") with odds of " + shotOdds);
+			shotOdds = (offense.getInsideOffense() + team.getCoach().getOffenseBoost()) / 1.3;
+			shotOdds -= (defense.getInsideDefense() + team.getCoach().getDefenseBoost()) / 4;
+			System.out.print(offense.getName() + " (" + offense.getInsideOffense() + ") attempts a two over " + 
+					defense.getName() + " (" + defense.getInsideDefense() + ") with odds of " + (int) shotOdds + "%");
+			int shotOutcome = (int) (Math.random() * 167) % 100;
+			if (shotOutcome <= shotOdds) {
+				System.out.println(" and makes it!");
+				if (team.getCity().equals(a.getCity())) {
+					aScore += 2;
+				}
+				else {
+					bScore += 2;
+				}
+				System.out.println("\n" + b.getName() + ": " + bScore + "   " + a.getName() + ": " + aScore + "\n");
+				return true;
+			}
+			System.out.println(" and misses.");
 		}
 		return false;
 	}
-	
 	
 }
