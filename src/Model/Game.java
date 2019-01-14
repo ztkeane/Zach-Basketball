@@ -71,7 +71,7 @@ public class Game {
 		if (choice > insideTendency) {
 			shotOdds = (offense.getOutsideOffense() + team.getCoach().getOffenseBoost()) / 2;
 			shotOdds -= (defense.getOutsideDefense() + team.getCoach().getDefenseBoost()) / 12;
-			System.out.print(offense.getName() + " (" + offense.getOutsideOffense() + ") shoots a three over " + 
+			System.out.print(team.getName() + ": " + offense.getName() + " (" + offense.getOutsideOffense() + ") shoots a three over " + 
 					defense.getName() + " (" + defense.getOutsideDefense() + ") with odds of " + (int) shotOdds + "%");
 			int shotOutcome = (int) (Math.random() * 167) % 100;
 			if (shotOutcome <= shotOdds) {
@@ -91,7 +91,7 @@ public class Game {
 		else {
 			shotOdds = (offense.getInsideOffense() + team.getCoach().getOffenseBoost()) / 1.3;
 			shotOdds -= (defense.getInsideDefense() + team.getCoach().getDefenseBoost()) / 4;
-			System.out.print(offense.getName() + " (" + offense.getInsideOffense() + ") attempts a two over " + 
+			System.out.print(team.getName() + ": " + offense.getName() + " (" + offense.getInsideOffense() + ") attempts a two over " + 
 					defense.getName() + " (" + defense.getInsideDefense() + ") with odds of " + (int) shotOdds + "%");
 			int shotOutcome = (int) (Math.random() * 167) % 100;
 			if (shotOutcome <= shotOdds) {
