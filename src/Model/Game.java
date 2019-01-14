@@ -34,6 +34,7 @@ public class Game {
 	
 	//TODO: Implement rebounding.
 	public void start() {
+		System.out.println("NOTE: If program crashes, a position on a team hasn't been filled.\n\n");
 		boolean endPlay = false;
 		//THESE are temporary testing variables.
 		int plays = 120;
